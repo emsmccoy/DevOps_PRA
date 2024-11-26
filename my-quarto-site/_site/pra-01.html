@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quarto - my-quarto-site</title>
+<title>Quarto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,6 +66,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -89,7 +92,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./my-quarto-site.html" aria-current="page"> 
+    <a class="nav-link" href="./my-quarto-site.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -97,7 +100,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./pra-01.html"> 
+    <a class="nav-link active" href="./pra-01.html" aria-current="page"> 
 <span class="menu-text">PRA-01</span></a>
   </li>  
 </ul>
@@ -116,45 +119,47 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#description-of-nodes" id="toc-description-of-nodes" class="nav-link active" data-scroll-target="#description-of-nodes">Description of Nodes:</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">my-quarto-site</h1>
+
+
+
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    A[Start: Install Quarto] --&gt; B[Create Quarto Project]
+    B --&gt; C[Modify Website Content]
+    C --&gt;|Add Pages, Call-outs, Mermaid Diagrams| D[Configure _quarto.yml]
+    D --&gt; E[Set Up Git Repository]
+    E --&gt; F[Link to GitHub Repository]
+    F --&gt; G[Publish to GitHub Pages]
+    G --&gt; H[Complete Exercise]
+</pre>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="quarto" class="level2">
-<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>This is an important note.</p>
+<p></p></figure><p></p>
 </div>
 </div>
 </div>
-<p>Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <a href="https://quarto.org" class="uri">https://quarto.org</a>.</p>
+<section id="description-of-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="description-of-nodes">Description of Nodes:</h3>
+<ul>
+<li><strong>A</strong>: Install Quarto.</li>
+<li><strong>B</strong>: Create a Quarto project using <code>quarto create-project</code>.</li>
+<li><strong>C</strong>: Modify the website (add pages, call-outs, and diagrams).</li>
+<li><strong>D</strong>: Update and configure <code>_quarto.yml</code> for navigation and settings.</li>
+<li><strong>E</strong>: Initialize Git locally.</li>
+<li><strong>F</strong>: Link to a remote GitHub repository.</li>
+<li><strong>G</strong>: Deploy the website to GitHub Pages.</li>
+<li><strong>H</strong>: The end goal of completing the exercise.</li>
+</ul>
 
 
 </section>

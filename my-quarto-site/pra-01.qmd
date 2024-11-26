@@ -1,4 +1,4 @@
-```mermaid
+```{mermaid}
 graph TD
     A[Start: Install Quarto] --> B[Create Quarto Project]
     B --> C[Modify Website Content]
@@ -7,7 +7,7 @@ graph TD
     E --> F[Link to GitHub Repository]
     F --> G[Publish to GitHub Pages]
     G --> H[Complete Exercise]
-
+```
 
 ### Description of Nodes:
 - **A**: Install Quarto.
