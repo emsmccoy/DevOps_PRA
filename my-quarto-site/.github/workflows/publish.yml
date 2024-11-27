@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - MF02-PRA02-EmmaAlonsoMcCoy
-      - MF01-PRA01-EmmaAlonsoMcCoy
   workflow_dispatch:
 
 jobs:
