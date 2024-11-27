@@ -3,7 +3,6 @@ name: Quarto Publish
 on:
   push:
     branches:
-      - main
       - MF02-PRA02-EmmaAlonsoMcCoy
       - MF01-PRA01-EmmaAlonsoMcCoy
   workflow_dispatch:
