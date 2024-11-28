@@ -8,19 +8,27 @@ log_message() {
     echo "[${timestamp}] ${message}" >> backlog/log.txt
 }
 
-# Function to select a branch
+# Function to select a branch (remote or local)
 select_branch() {
-    echo "Fetching remote branches..."
-    git fetch origin &> /dev/null  # Fetch remote branches silently
-    log_message "Fetched remote branches."
+    local type="$1"  # "local" or "remote"
+    echo "Fetching $type branches..."
+    if [ "$type" == "remote" ]; then
+        git fetch origin &> /dev/null  # Fetch remote branches silently
+        log_message "Fetched remote branches."
+        branches=$(git branch -r | grep -v "\->")  # Exclude HEAD references
+    elif [ "$type" == "local" ]; then
+        branches=$(git branch | sed 's/\* //')  # List local branches without highlighting
+    else
+        echo "Invalid branch type."
+        log_message "Invalid branch type: $type."
+        exit 1
+    fi
 
-    # List remote branches and show options to the user
-    branches=$(git branch -r | grep -v "\->")  # Exclude HEAD references
-    echo "Available remote branches:"
+    echo "Available $type branches:"
     select branch in $branches; do
         if [ -n "$branch" ]; then
             echo "You selected branch: $branch"
-            log_message "Selected branch: $branch"
+            log_message "Selected $type branch: $branch"
             echo "$branch"
             return
         else
@@ -42,15 +50,47 @@ git add .
 log_message "Committing changes with message: $1"
 git commit -m "$1" || { log_message "Commit failed."; exit 1; }
 
-# Allow user to choose a branch
-branch=$(select_branch)
-branch_name=$(echo "$branch" | sed 's/origin\///')  # Extract branch name
+# Allow user to select a local branch
+local_branch=$(select_branch "local")
 
-# Push the changes to the selected branch
-if git push origin "$branch_name"; then
-    log_message "Pushed changes to branch: $branch_name successfully."
+# Ask if the user wants to upstream this branch
+read -p "Do you want to upstream the local branch '$local_branch' to a remote branch? (y/n): " upstream_response
+if [[ "$upstream_response" =~ ^[Yy]$ ]]; then
+    # Allow user to select a remote branch or create a new one
+    echo "Select a remote branch to upstream to or press Enter to create a new remote branch."
+    remote_branch=$(select_branch "remote")
+    remote_branch_name=$(echo "$remote_branch" | sed 's/origin\///')
+
+    # Upstream local branch to the selected remote branch
+    if [ -z "$remote_branch" ]; then
+        # Create a new remote branch
+        echo "No remote branch selected. Creating a new remote branch with the name: $local_branch"
+        log_message "Creating new remote branch: $local_branch"
+        if git push --set-upstream origin "$local_branch"; then
+            log_message "Local branch '$local_branch' successfully upstreamed to remote branch '$local_branch'."
+        else
+            log_message "Failed to upstream local branch '$local_branch'."
+            exit 1
+        fi
+    else
+        # Upstream to existing remote branch
+        if git push --set-upstream origin "$local_branch:$remote_branch_name"; then
+            log_message "Local branch '$local_branch' successfully upstreamed to remote branch '$remote_branch_name'."
+        else
+            log_message "Failed to upstream local branch '$local_branch' to remote branch '$remote_branch_name'."
+            exit 1
+        fi
+    fi
 else
-    log_message "Failed to push changes to branch: $branch_name."
+    echo "Skipping upstreaming for local branch '$local_branch'."
+    log_message "Skipping upstreaming for local branch: $local_branch."
+fi
+
+# Push changes to the selected branch
+if git push origin "$local_branch"; then
+    log_message "Pushed changes to branch: $local_branch successfully."
+else
+    log_message "Failed to push changes to branch: $local_branch."
     exit 1
 fi
 
