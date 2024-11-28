@@ -8,7 +8,7 @@ log_message() {
     echo "[${timestamp}] ${message}" >> backlog/log.txt
 }
 
-# Function to select a branch (remote or local)
+# Function to select a branch (local or remote)
 select_branch() {
     local type="$1"  # "local" or "remote"
     echo "Fetching $type branches..."
