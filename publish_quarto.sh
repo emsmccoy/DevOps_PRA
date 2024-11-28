@@ -59,23 +59,23 @@ if [[ "$upstream_response" =~ ^[Yy]$ ]]; then
     # Allow user to select a remote branch or create a new one
     echo "Select a remote branch to upstream to or press Enter to create a new remote branch."
     remote_branch=$(select_branch "remote")
-    remote_branch_name=$(echo "$remote_branch" | sed 's/origin\///')
 
-    # Upstream local branch to the selected remote branch
     if [ -z "$remote_branch" ]; then
-        # Create a new remote branch
-        echo "No remote branch selected. Creating a new remote branch with the name: $local_branch"
-        log_message "Creating new remote branch: $local_branch"
+        # User pressed Enter, create a new remote branch
+        remote_branch_name="$local_branch"
+        echo "No remote branch selected. Creating a new remote branch with the name: $remote_branch_name"
+        log_message "No remote branch selected. Creating a new remote branch: $remote_branch_name"
         if git push --set-upstream origin "$local_branch"; then
-            log_message "Local branch '$local_branch' successfully upstreamed to remote branch '$local_branch'."
+            log_message "Local branch '$local_branch' successfully upstreamed to new remote branch '$remote_branch_name'."
         else
-            log_message "Failed to upstream local branch '$local_branch'."
+            log_message "Failed to upstream local branch '$local_branch' to new remote branch '$remote_branch_name'."
             exit 1
         fi
     else
-        # Upstream to existing remote branch
+        # User selected an existing remote branch
+        remote_branch_name=$(echo "$remote_branch" | sed 's/origin\///')
         if git push --set-upstream origin "$local_branch:$remote_branch_name"; then
-            log_message "Local branch '$local_branch' successfully upstreamed to remote branch '$remote_branch_name'."
+            log_message "Local branch '$local_branch' successfully upstreamed to existing remote branch '$remote_branch_name'."
         else
             log_message "Failed to upstream local branch '$local_branch' to remote branch '$remote_branch_name'."
             exit 1
