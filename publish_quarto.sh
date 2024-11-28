@@ -27,9 +27,11 @@ select_branch() {
     echo "Available $type branches:"
     select branch in $branches; do
         if [ -n "$branch" ]; then
-            echo "You selected branch: $branch"
             log_message "Selected $type branch: $branch"
             echo "$branch"
+            return
+        elif [ -z "$branch" ] && [ "$type" == "remote" ]; then
+            echo "No remote branch selected. You can create a new remote branch."
             return
         else
             echo "Invalid selection. Please try again."
