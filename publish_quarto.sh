@@ -11,7 +11,7 @@ git add .
 git commit -m "$1"
 
 # Push the changes to the main branch
-git push origin master
+git push origin MF03-PRA03-EmmaAlonsoMcCoy
 
 # Publish to GitHub Pages using quarto
 quarto publish gh-pages --no-render --no-prompt
