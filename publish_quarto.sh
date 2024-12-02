@@ -33,6 +33,9 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Log the commit message to the log file
+log_message "Committed changes with message: $1"
+
 # Push the changes to the PRA03 branch
 git push origin MF03-PRA03-EmmaAlonsoMcCoy
 if [ $? -ne 0 ]; then
