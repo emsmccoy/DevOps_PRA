@@ -4,7 +4,7 @@
 log_message() {
     local message="$1"
     local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    local log_file="./log.txt"
+    local log_file="/home/emma/MyProjects/IntroDevOps/Quarto/DevOps_PRA/log.txt"
     
     # Create log.txt if it doesn't exist
     if [ ! -f "$log_file" ]; then
