@@ -1,27 +1,55 @@
 #!/bin/bash
 
+# Function to create and log messages with timestamp
+log_message() {
+    local message="$1"
+    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+    
+    # Create log.txt if it doesn't exist
+    if [ ! -f log.txt ]; then
+        touch log.txt
+    fi
+    
+    echo "[${timestamp}] ${message}" >> log.txt
+}
+
 # Check if the commit message is provided
 if [ -z "$1" ]; then
   echo "Please provide a commit message."
+  log_message "Error: Commit message not provided."
   exit 1
 fi
 
 # Commit the changes with the provided message
 git add .
+if [ $? -ne 0 ]; then
+  log_message "Error: git add failed."
+  exit 1
+fi
+
 git commit -m "$1"
+if [ $? -ne 0 ]; then
+  log_message "Error: git commit failed."
+  exit 1
+fi
 
 # Push the changes to the PRA03 branch
 git push origin MF03-PRA03-EmmaAlonsoMcCoy
+if [ $? -ne 0 ]; then
+  log_message "Error: git push failed."
+  exit 1
+fi
+log_message "Successfully pushed changes to MF03-PRA03-EmmaAlonsoMcCoy."
 
 # Go to the project directory
-cd my-quarto-site
+cd my-quarto-site || { log_message "Error: cd my-quarto-site failed."; exit 1; }
 
-# Publish to GitHub Pages using quarto
+# Publish to GitHub Pages using Quarto
 quarto publish gh-pages --no-render --no-prompt
+if [ $? -ne 0 ]; then
+  log_message "Error: Quarto publish failed."
+  exit 1
+fi
+log_message "Successfully published to GitHub Pages."
 
-# Create log message
-log_message() {
-    local message="$1"
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    echo "[${timestamp}] ${message}" >> log.txt
-}
+log_message "Script execution completed successfully."
