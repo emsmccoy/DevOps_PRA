@@ -13,5 +13,15 @@ git commit -m "$1"
 # Push the changes to the PRA03 branch
 git push origin MF03-PRA03-EmmaAlonsoMcCoy
 
+# Go to the project directory
+cd my-quarto-site
+
 # Publish to GitHub Pages using quarto
 quarto publish gh-pages --no-render --no-prompt
+
+# Create log message
+log_message() {
+    local message="$1"
+    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+    echo "[${timestamp}] ${message}" >> log.txt
+}
