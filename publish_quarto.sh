@@ -10,7 +10,7 @@ fi
 git add .
 git commit -m "$1"
 
-# Push the changes to the main branch
+# Push the changes to the PRA03 branch
 git push origin MF03-PRA03-EmmaAlonsoMcCoy
 
 # Publish to GitHub Pages using quarto
