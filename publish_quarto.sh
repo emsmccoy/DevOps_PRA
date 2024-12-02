@@ -4,13 +4,14 @@
 log_message() {
     local message="$1"
     local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+    local log_file="./log.txt"
     
     # Create log.txt if it doesn't exist
-    if [ ! -f log.txt ]; then
-        touch log.txt
+    if [ ! -f "$log_file" ]; then
+        touch "$log_file"
     fi
     
-    echo "[${timestamp}] ${message}" >> log.txt
+    echo "[${timestamp}] ${message}" >> "$log_file"
 }
 
 # Check if the commit message is provided
