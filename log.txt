@@ -1,2 +1,4 @@
-[2024-12-02 13:31:25] Committed changes with message: Check if log.txt is created correctly
-[2024-12-02 13:31:28] Successfully pushed changes to MF03-PRA03-EmmaAlonsoMcCoy.
+[2024-12-02 13:42:12] Committed changes with message: Test if log.txt is only created in the root directory (2nd try)
+[2024-12-02 13:42:15] Successfully pushed changes to MF03-PRA03-EmmaAlonsoMcCoy.
+[2024-12-02 13:42:50] Successfully published to GitHub Pages.
+[2024-12-02 13:42:50] Script execution completed successfully.
